@@ -56,8 +56,7 @@
 /* Desktop: 1280px and above */
 @media (min-width: 1280px) {
     .accordion-container        { flex-direction: row; max-width: 90%; } 
-    .accordion-component        { padding: 24px; } 
-    .accordion-items            {  } 
+    .accordion-component        { padding: 24px; }
     .accordion-item-title       { font-size: 17px; } 
     .accordion-content-inner    { font-size: 16px; } 
     .accordion-icon             { width: 28px; height: 28px; font-size: 20px; }
