@@ -11,6 +11,8 @@ body.modal-open {
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	padding: 0;
+	max-width: 500px;
+	width: 100%;
 }
 
 .modal dialog .modal-content {
@@ -50,6 +52,11 @@ body.modal-open {
 	width: 100%;
 	display: block;
 }
+
+@media (max-width: 639px) {
+	.modal dialog 					{ max-width: 90%; }
+	.modal dialog .modal-content	{ padding: 24px 12px; }
+ }
 
 @media (width > 640px) {
 	.modal dialog .modal-content {

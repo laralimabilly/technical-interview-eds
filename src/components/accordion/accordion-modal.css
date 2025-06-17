@@ -1,28 +1,64 @@
-.contact-us-modal {
-    width: 400px;
+.contact-us-modal                       { width: 100%; max-width: 500px; margin: 0 auto; }
+.contact-us-modal h2                    { margin: 0 0 24px 0; color: #1a1a1a; font-size: 24px; font-weight: 700; text-align: center; }
+
+.form-container                         { display: flex; flex-direction: column; gap: 20px; }
+.form-group                             { display: flex; flex-direction: column; gap: 8px; position: relative; }
+.form-group label                       { font-weight: 600; color: #1a1a1a; font-size: 14px; display: flex; align-items: center; gap: 4px; }
+.form-group input,
+.form-group textarea                    { padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 6px; background-color: #ffffff; color: #1a1a1a; font-size: 14px; font-family: inherit; transition: border-color 0.2s ease, box-shadow 0.2s ease; resize: vertical; }
+.form-group input:focus,
+.form-group textarea:focus              { outline: none; border-color: #005cb9; box-shadow: 0 0 0 3px rgba(0, 92, 185, 0.1); }
+.form-group input:hover,
+.form-group textarea:hover              { border-color: #b0b0b0; }
+.form-group textarea                    { min-height: 100px; font-family: inherit; }
+.form-group input::placeholder,
+.form-group textarea::placeholder       { color: #888; }
+.form-group.has-error input,
+.form-group.has-error textarea          { border-color: #dc2626; background-color: #fef2f2; }
+.form-group.has-error input:focus,
+.form-group.has-error textarea:focus    { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); }
+.form-actions                           { display: flex; justify-content: center; margin-top: 8px; padding-top: 16px; border-top: 1px solid #e0e0e0; }
+.form-actions .button                   { min-width: 120px; padding: 12px 24px; }
+
+.required               { color: #dc2626; font-weight: 700; }
+.error-message          { color: #dc2626; font-size: 12px; font-weight: 500; display: none; margin-top: 4px; padding-left: 4px; }
+.error-message:before   { content: '⚠ '; margin-right: 4px; }
+.help-text              { color: #666; font-size: 12px; margin-top: 4px; padding-left: 4px; }
+
+/* Responsive Design */
+
+/* Mobile: under 640px */
+@media (max-width: 639px) { 
+    .contact-us-modal       { width: 100%; max-width: none; } 
+    .contact-us-modal h2    { font-size: 20px; margin-bottom: 20px; } 
+    .form-container         { gap: 16px; } 
+    .form-group input, 
+    .form-group textarea    { padding: 10px 12px; font-size: 16px; /* Prevents zoom on iOS */ } 
+    .form-actions .button   { width: 100%; padding: 14px 24px; } 
 }
 
-.contact-us-modal > div {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+/* Tablet: 640px - 1279px */
+@media (min-width: 640px) and (max-width: 1279px) { 
+    .contact-us-modal { max-width: 450px; } 
 }
 
-.contact-us-modal .form-group input,
-.contact-us-modal .form-group textarea {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #C7C7C7;
-    color: #545454;
+/* Desktop: 1280px and above */
+@media (min-width: 1280px) { 
+    .contact-us-modal       { max-width: 500px; } 
+    .form-group input, 
+    .form-group textarea    { padding: 14px 18px; font-size: 15px; } 
 }
 
-.contact-us-modal .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* High contrast mode support */
+@media (prefers-contrast: high) { 
+    .form-group input, 
+    .form-group textarea            { border-width: 2px; } 
+    .form-group.has-error input, 
+    .form-group.has-error textarea  { border-width: 3px; } 
 }
 
-.contact-us-modal .form-group label {
-    font-weight: 600;
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) { 
+    .form-group input, 
+    .form-group textarea { transition: none; } 
 }
