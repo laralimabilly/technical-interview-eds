@@ -44,12 +44,10 @@ export async function renderAccordionModal() {
         </div>
     `;
 
-    // Form validation functions
     function validateField(field: HTMLInputElement | HTMLTextAreaElement): ValidationError | null {
         const value = field.value.trim();
         const fieldName = field.name;
 
-        // Required field validation
         if (field.hasAttribute('required') && !value) {
             return {
                 field: fieldName,
@@ -57,7 +55,6 @@ export async function renderAccordionModal() {
             };
         }
 
-        // Email specific validation
         if (fieldName === 'email' && value) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(value)) {
@@ -68,7 +65,6 @@ export async function renderAccordionModal() {
             }
         }
 
-        // Name field validation (no numbers or special characters)
         if ((fieldName === 'firstName' || fieldName === 'lastName') && value) {
             const nameRegex = /^[a-zA-ZÀ-ÿ\s'-]+$/;
             if (!nameRegex.test(value)) {
@@ -169,7 +165,6 @@ export async function renderAccordionModal() {
         return errors;
     }
 
-    // Add real-time validation
     const inputs = modalContent.querySelectorAll('input, textarea');
     inputs.forEach(input => {
         input.addEventListener('blur', () => {
@@ -182,7 +177,6 @@ export async function renderAccordionModal() {
         });
 
         input.addEventListener('input', () => {
-            // Clear error on input if field was previously invalid
             const fieldName = input.getAttribute('name') || '';
             const formGroup = input.closest('.form-group');
             if (formGroup?.classList.contains('has-error')) {
@@ -194,30 +188,24 @@ export async function renderAccordionModal() {
         });
     });
 
-    // Form submission handler
     modalContent.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // Clear previous errors
         clearAllErrors();
         
-        // Validate form
         const errors = validateForm();
         
         if (errors.length > 0) {
-            // Show errors
             errors.forEach(error => {
                 showFieldError(error.field, error.message);
             });
-            
-            // Focus first error field
+
             const firstErrorField = modalContent.querySelector(`[name="${errors[0].field}"]`) as HTMLElement;
             firstErrorField?.focus();
             
             return;
         }
 
-        // Form is valid, process submission
         const formData = new FormData(modalContent);
         const data: FormData = {
             firstName: formData.get('firstName') as string,
@@ -226,7 +214,6 @@ export async function renderAccordionModal() {
             message: formData.get('message') as string
         };
 
-        // Show success message
         const successMessage = `Thank you, ${data.firstName}! Your message has been submitted successfully.
 
 We'll get back to you at ${data.email} as soon as possible.
@@ -236,14 +223,12 @@ ${data.message || 'No additional message provided'}`;
 
         alert(successMessage);
         
-        // Close modal after successful submission
         const dialog = modalContent.closest('dialog') as HTMLDialogElement;
         if (dialog) {
             dialog.close();
         }
     });
 
-    // Create and show modal
     const { block, showModal } = await createModal({
         contentNodes: [modalContent],
     });
@@ -251,7 +236,6 @@ ${data.message || 'No additional message provided'}`;
     document.body.appendChild(block);
     showModal();
     
-    // Focus first input when modal opens
     setTimeout(() => {
         const firstInput = modalContent.querySelector('#firstName') as HTMLInputElement;
         firstInput?.focus();

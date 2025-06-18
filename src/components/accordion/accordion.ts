@@ -20,16 +20,13 @@ function decorateAccordion(accordion: HTMLElement) {
 
     const [headerDiv, ...contentDivs] = Array.from(accordion.children) as HTMLElement[];
     
-    // Extract header information
     const [titleSection, contactSection] = Array.from(headerDiv.children) as HTMLElement[];
     const mainTitle = titleSection.querySelector('h2')?.textContent || 'Accordion';
     const contactTitle = contactSection.querySelector('h2')?.textContent || 'Contact Us';
     
-    // Clear accordion and set up structure
     accordion.innerHTML = '';
     accordion.className = 'accordion-component';
     
-    // Create header
     const header = document.createElement('div');
     header.className = 'accordion-header';
     
@@ -46,12 +43,10 @@ function decorateAccordion(accordion: HTMLElement) {
     header.appendChild(contactButton);
     accordion.appendChild(header);
     
-    // Create accordion items container
     const itemsContainer = document.createElement('div');
     itemsContainer.className = 'accordion-items';
     accordion.appendChild(itemsContainer);
     
-    // Process accordion items - each contentDiv is a wrapper containing question and answer divs
     const accordionItems: AccordionItem[] = [];
     contentDivs.forEach(wrapperDiv => {
         const children = Array.from(wrapperDiv.children) as HTMLElement[];
@@ -71,7 +66,6 @@ function decorateAccordion(accordion: HTMLElement) {
     function renderItems() {
         itemsContainer.innerHTML = '';
         
-        // Render visible items
         accordionItems.slice(0, visibleItems).forEach((item, index) => {
             const itemElement = document.createElement('div');
             itemElement.className = 'accordion-item';
@@ -90,7 +84,6 @@ function decorateAccordion(accordion: HTMLElement) {
             icon.className = 'accordion-icon';
             icon.setAttribute('aria-hidden', 'true');
             icon.setAttribute('src', '../../images/chevron-down-black.svg');
-            //icon.innerHTML = '+';
             
             titleButton.appendChild(titleText);
             titleButton.appendChild(icon);
@@ -110,10 +103,8 @@ function decorateAccordion(accordion: HTMLElement) {
             itemElement.appendChild(contentElement);
             itemsContainer.appendChild(itemElement);
             
-            // Add click handler
             itemElement.addEventListener('click', () => toggleAccordionItem(itemElement, titleButton, contentElement, icon));
             
-            // Add keyboard support
             itemElement.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -128,7 +119,6 @@ function decorateAccordion(accordion: HTMLElement) {
             });
         });
         
-        // Add load more button if needed
         if (visibleItems < accordionItems.length) {
             const loadMoreButton = document.createElement('button');
             loadMoreButton.className = 'button secondary load-more-button';
@@ -153,13 +143,11 @@ function decorateAccordion(accordion: HTMLElement) {
         const isExpanded = titleButton.getAttribute('aria-expanded') === 'true';
         
         if (isExpanded) {
-            // Collapse
             titleButton.setAttribute('aria-expanded', 'false');
             contentElement.setAttribute('aria-hidden', 'true');
             itemElement.classList.remove('expanded');
             icon.setAttribute('aria-label', 'Expand');
         } else {
-            // Expand
             titleButton.setAttribute('aria-expanded', 'true');
             contentElement.setAttribute('aria-hidden', 'false');
             itemElement.classList.add('expanded');
@@ -204,7 +192,6 @@ function decorateAccordion(accordion: HTMLElement) {
         head.appendChild(fontLink);
     }
     
-    // Contact button handler
     contactButton.addEventListener('click', async () => {
         try {
             await renderAccordionModal();
@@ -213,7 +200,6 @@ function decorateAccordion(accordion: HTMLElement) {
         }
     });
     
-    // Initial render
     getGoogleFont();
     renderItems();
 }
